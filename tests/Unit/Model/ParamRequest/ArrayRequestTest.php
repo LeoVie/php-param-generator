@@ -6,49 +6,29 @@ namespace LeoVie\PhpParamGenerator\Tests\Unit\Model\ParamRequest;
 
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ArrayRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
-use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
 use PHPUnit\Framework\TestCase;
 
 class ArrayRequestTest extends TestCase
 {
     /** @dataProvider getTypeProvider */
-    public function testGetType(ParamRequest $expected, ArrayRequest $request): void
+    public function testGetTypes(array $expected, ArrayRequest $request): void
     {
-        self::assertSame($expected, $request->getType());
+        self::assertSame($expected, $request->getTypes());
     }
 
     public function getTypeProvider(): \Generator
     {
-        $type = IntRequest::create();
+        $types = [IntRequest::create(), IntRequest::create()];
         yield [
-            'expected' => $type,
-            ArrayRequest::create($type, 10)
+            'expected' => $types,
+            ArrayRequest::create($types),
         ];
 
-        $type = StringRequest::create();
+        $types = [StringRequest::create(), IntRequest::create(), StringRequest::create()];
         yield [
-            'expected' => $type,
-            ArrayRequest::create($type, 10)
-        ];
-    }
-
-    /** @dataProvider getCountOfEntriesProvider */
-    public function testGetCountOfEntries(int $expected, ArrayRequest $request): void
-    {
-        self::assertSame($expected, $request->getCountOfEntries());
-    }
-
-    public function getCountOfEntriesProvider(): \Generator
-    {
-        yield [
-            'expected' => 10,
-            ArrayRequest::create(IntRequest::create(), 10)
-        ];
-
-        yield [
-            'expected' => 7,
-            ArrayRequest::create(IntRequest::create(), 7)
+            'expected' => $types,
+            ArrayRequest::create($types),
         ];
     }
 }

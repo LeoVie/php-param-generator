@@ -14,7 +14,7 @@ class ArrayParamGenerator implements ParamGenerator
 {
     private const SUPPORTED_REQUEST = ArrayRequest::class;
 
-    public function __construct(private ParamGeneratorStrategy $paramGeneratorStrategy)
+    public function __construct(private ParamGeneratorFinderInterface $paramGeneratorFinder)
     {
     }
 
@@ -36,11 +36,12 @@ class ArrayParamGenerator implements ParamGenerator
     /** @throws NoParamGeneratorFoundForParamRequest */
     private function generateArray(ArrayRequest $request): ArrayParam
     {
-        $values = [];
-        for ($i = 0; $i < $request->getCountOfEntries(); $i++) {
-            $arrayItemRequest = $request->getType();
-            $values[] = $this->paramGeneratorStrategy->getConcreteParamGenerator($arrayItemRequest)->generate($arrayItemRequest);
-        }
+        $values = array_map(
+            fn(ParamRequest $pr): Param => $this->paramGeneratorFinder
+                ->getConcreteParamGenerator($pr)
+                ->generate($pr),
+            $request->getTypes()
+        );
 
         return ArrayParam::create($values);
     }
