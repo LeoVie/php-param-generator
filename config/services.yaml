@@ -10,3 +10,10 @@ services:
     exclude:
       - '../src/DependencyInjection/'
       - '../src/PhpParamGeneratorBundle.php'
+
+  _instanceof:
+    LeoVie\PhpParamGenerator\ParamGenerator\ParamGenerator:
+      tags: [ 'app.param_generator' ]
+    LeoVie\PhpParamGenerator\ParamGenerator\ParamGeneratorStrategy:
+      arguments: [ !tagged_iterator { tag: 'app.param_generator' } ]
+      public: true
