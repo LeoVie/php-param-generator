@@ -29,4 +29,9 @@ class ArrayParam implements Param
     {
         return array_map(fn(Param $p): mixed => $p->flatten(), $this->getValue());
     }
+
+    public function __toString(): string
+    {
+        return \Safe\sprintf('ARRAY_PARAM(%s)', join(', ', $this->getValue()));
+    }
 }

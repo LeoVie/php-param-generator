@@ -25,4 +25,9 @@ class StringParam implements Param
     {
         return $this->getValue();
     }
+
+    public function __toString(): string
+    {
+        return \Safe\sprintf('STRING_PARAM(%s)', $this->flatten());
+    }
 }
