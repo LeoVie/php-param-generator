@@ -6,4 +6,5 @@ namespace LeoVie\PhpParamGenerator\Model\ParamRequest;
 
 interface ParamRequest
 {
+    public function __toString(): string;
 }

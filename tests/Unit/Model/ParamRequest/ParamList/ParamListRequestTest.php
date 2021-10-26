@@ -39,4 +39,32 @@ class ParamListRequestTest extends TestCase
             ParamListRequest::create($paramRequests),
         ];
     }
+
+    /** @dataProvider toStringProvider */
+    public function testToString(string $expected, ParamListRequest $paramListRequest): void
+    {
+        self::assertSame($expected, $paramListRequest->__toString());
+    }
+
+    public function toStringProvider(): \Generator
+    {
+        $paramRequests = [
+            IntRequest::create(),
+            IntRequest::create(),
+        ];
+        yield [
+            'expected' => 'PARAM_LIST_REQUEST(INT_REQUEST, INT_REQUEST)',
+            ParamListRequest::create($paramRequests),
+        ];
+
+        $paramRequests = [
+            IntRequest::create(),
+            StringRequest::create(),
+            ArrayRequest::create([IntRequest::create()])
+        ];
+        yield [
+            'expected' => 'PARAM_LIST_REQUEST(INT_REQUEST, STRING_REQUEST, ARRAY_REQUEST(INT_REQUEST))',
+            ParamListRequest::create($paramRequests),
+        ];
+    }
 }

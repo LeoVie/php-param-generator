@@ -31,4 +31,25 @@ class ArrayRequestTest extends TestCase
             ArrayRequest::create($types),
         ];
     }
+
+    /** @dataProvider toStringProvider */
+    public function testToString(string $expected, ArrayRequest $request): void
+    {
+        self::assertSame($expected, $request->__toString());
+    }
+
+    public function toStringProvider(): \Generator
+    {
+        $types = [IntRequest::create(), IntRequest::create()];
+        yield [
+            'expected' => 'ARRAY_REQUEST(INT_REQUEST, INT_REQUEST)',
+            ArrayRequest::create($types),
+        ];
+
+        $types = [StringRequest::create(), IntRequest::create(), StringRequest::create()];
+        yield [
+            'expected' => 'ARRAY_REQUEST(STRING_REQUEST, INT_REQUEST, STRING_REQUEST)',
+            ArrayRequest::create($types),
+        ];
+    }
 }

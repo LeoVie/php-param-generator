@@ -21,4 +21,9 @@ class ArrayRequest implements ParamRequest
     {
         return $this->types;
     }
+
+    public function __toString(): string
+    {
+        return \Safe\sprintf('ARRAY_REQUEST(%s)', join(', ', $this->getTypes()));
+    }
 }

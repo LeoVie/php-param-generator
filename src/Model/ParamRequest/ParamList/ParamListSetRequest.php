@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList;
 
-class ParamListSetRequest
+class ParamListSetRequest implements \Stringable
 {
     private function __construct(private ParamListRequest $paramListRequest, private int $count)
     {
@@ -23,5 +23,10 @@ class ParamListSetRequest
     public function getCount(): int
     {
         return $this->count;
+    }
+
+    public function __toString(): string
+    {
+        return \Safe\sprintf('PARAM_LIST_SET_REQUEST(%sx %s)', $this->getCount(), $this->getParamListRequest());
     }
 }

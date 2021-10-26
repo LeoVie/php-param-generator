@@ -10,4 +10,9 @@ class StringRequest implements ParamRequest
     {
         return new self();
     }
+
+    public function __toString(): string
+    {
+        return 'STRING_REQUEST';
+    }
 }
