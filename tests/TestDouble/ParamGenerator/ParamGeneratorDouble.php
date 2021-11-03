@@ -20,7 +20,7 @@ class ParamGeneratorDouble implements ParamGenerator
         return true;
     }
 
-    public function generate(ParamRequest $request): Param
+    public function generate(ParamRequest $request, int $index): Param
     {
         return array_shift($this->generated);
     }

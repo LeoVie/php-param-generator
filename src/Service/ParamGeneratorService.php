@@ -39,17 +39,18 @@ class ParamGeneratorService
     /** @throws NoParamGeneratorFoundForParamRequest */
     private function generateByParamListRequest(ParamListRequest $paramListRequest): ParamList
     {
-        return ParamList::create(array_map(
-            fn(ParamRequest $pr): Param => $this->generateSingle($pr),
-            $paramListRequest->getParamRequests()
-        ));
+        $params = [];
+        foreach ($paramListRequest->getParamRequests() as $index => $paramRequest) {
+            $params[] = $this->generateSingle($paramRequest, $index);
+        }
+        return ParamList::create($params);
     }
 
     /** @throws NoParamGeneratorFoundForParamRequest */
-    private function generateSingle(ParamRequest $request): Param
+    private function generateSingle(ParamRequest $request, int $index): Param
     {
         return $this->paramGeneratorFinder
             ->getConcreteParamGenerator($request)
-            ->generate($request);
+            ->generate($request, $index);
     }
 }

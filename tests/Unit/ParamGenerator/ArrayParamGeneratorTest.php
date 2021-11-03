@@ -13,7 +13,6 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\ArrayRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
 use LeoVie\PhpParamGenerator\ParamGenerator\ArrayParamGenerator;
-use LeoVie\PhpParamGenerator\ParamGenerator\ParamGenerator;
 use LeoVie\PhpParamGenerator\Tests\TestDouble\ParamGenerator\ParamGeneratorDouble;
 use LeoVie\PhpParamGenerator\Tests\TestDouble\ParamGenerator\ParamGeneratorFinderDouble;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +24,7 @@ class ArrayParamGeneratorTest extends TestCase
     {
         $paramGeneratorFinder = new ParamGeneratorFinderDouble($paramGenerators);
 
-        self::assertEquals($expected, (new ArrayParamGenerator($paramGeneratorFinder))->generate($request));
+        self::assertEquals($expected, (new ArrayParamGenerator($paramGeneratorFinder))->generate($request, 2));
     }
 
     public function generateProvider(): Generator

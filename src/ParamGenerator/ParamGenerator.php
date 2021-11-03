@@ -11,5 +11,5 @@ interface ParamGenerator
 {
     public function supports(ParamRequest $request): bool;
 
-    public function generate(ParamRequest $request): Param;
+    public function generate(ParamRequest $request, int $index): Param;
 }

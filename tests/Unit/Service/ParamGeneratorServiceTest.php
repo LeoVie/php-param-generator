@@ -12,7 +12,6 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListSetRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
-use LeoVie\PhpParamGenerator\ParamGenerator\ParamGeneratorFinder;
 use LeoVie\PhpParamGenerator\ParamGenerator\ParamGeneratorFinderInterface;
 use LeoVie\PhpParamGenerator\Service\ParamGeneratorService;
 use LeoVie\PhpParamGenerator\Tests\TestDouble\ParamGenerator\ParamGeneratorDouble;
@@ -60,6 +59,36 @@ class ParamGeneratorServiceTest extends TestCase
             'paramListSetRequest' => $paramListSetRequest,
             'paramGeneratorFinder' => $paramGeneratorFinder,
         ];
+
+
+
+
+
+
+        $params = [
+            IntParam::create(10),
+            IntParam::create(20),
+        ];
+        $expected = ParamListSet::create([
+            ParamList::create([$params[0], $params[1]]),
+        ]);
+        $paramListSetRequest = ParamListSetRequest::create(
+            ParamListRequest::create([
+                IntRequest::create(),
+                IntRequest::create(),
+            ]),
+            1
+        );
+        $paramGeneratorFinder = new ParamGeneratorFinderDouble([
+            IntRequest::class => new ParamGeneratorDouble($params),
+        ]);
+        yield [
+            'expected' => $expected,
+            'paramListSetRequest' => $paramListSetRequest,
+            'paramGeneratorFinder' => $paramGeneratorFinder,
+        ];
+
+
 
         $params = [
             IntParam::create(10),
