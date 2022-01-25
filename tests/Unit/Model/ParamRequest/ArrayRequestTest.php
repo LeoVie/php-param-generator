@@ -12,23 +12,16 @@ use PHPUnit\Framework\TestCase;
 class ArrayRequestTest extends TestCase
 {
     /** @dataProvider getTypeProvider */
-    public function testGetTypes(array $expected, ArrayRequest $request): void
+    public function testGetTypes(array $types): void
     {
-        self::assertSame($expected, $request->getTypes());
+        self::assertSame($types, ArrayRequest::create($types)->getTypes());
     }
 
-    public function getTypeProvider(): \Generator
+    public function getTypeProvider(): array
     {
-        $types = [IntRequest::create(), IntRequest::create()];
-        yield [
-            'expected' => $types,
-            ArrayRequest::create($types),
-        ];
-
-        $types = [StringRequest::create(), IntRequest::create(), StringRequest::create()];
-        yield [
-            'expected' => $types,
-            ArrayRequest::create($types),
+        return [
+            [[IntRequest::create(), IntRequest::create()]],
+            [[StringRequest::create(), IntRequest::create(), StringRequest::create()]]
         ];
     }
 

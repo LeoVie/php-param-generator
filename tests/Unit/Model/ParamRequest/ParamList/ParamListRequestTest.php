@@ -13,30 +13,27 @@ use PHPUnit\Framework\TestCase;
 class ParamListRequestTest extends TestCase
 {
     /** @dataProvider getParamRequestsProvider */
-    public function testGetParamRequests(array $expected, ParamListRequest $paramListRequest): void
+    public function testGetParamRequests(array $paramRequests): void
     {
-        self::assertSame($expected, $paramListRequest->getParamRequests());
+        self::assertSame($paramRequests, ParamListRequest::create($paramRequests)->getParamRequests());
     }
 
-    public function getParamRequestsProvider(): \Generator
+    public function getParamRequestsProvider(): array
     {
-        $paramRequests = [
-            IntRequest::create(),
-            IntRequest::create(),
-        ];
-        yield [
-            'expected' => $paramRequests,
-            ParamListRequest::create($paramRequests),
-        ];
-
-        $paramRequests = [
-            IntRequest::create(),
-            StringRequest::create(),
-            ArrayRequest::create([IntRequest::create()])
-        ];
-        yield [
-            'expected' => $paramRequests,
-            ParamListRequest::create($paramRequests),
+        return [
+            [
+                [
+                    IntRequest::create(),
+                    IntRequest::create(),
+                ],
+            ],
+            [
+                [
+                    IntRequest::create(),
+                    StringRequest::create(),
+                    ArrayRequest::create([IntRequest::create()])
+                ],
+            ]
         ];
     }
 

@@ -17,3 +17,6 @@ services:
   LeoVie\PhpParamGenerator\ParamGenerator\ParamGeneratorFinder:
     arguments: [ !tagged_iterator { tag: 'app.param_generator' } ]
     public: true
+
+  Faker\Generator:
+    factory: [ 'Faker\Factory', 'create' ]

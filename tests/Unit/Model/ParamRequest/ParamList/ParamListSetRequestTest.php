@@ -13,42 +13,36 @@ use PHPUnit\Framework\TestCase;
 class ParamListSetRequestTest extends TestCase
 {
     /** @dataProvider getParamListRequestProvider */
-    public function testGetParamListRequest(ParamListRequest $expected, ParamListSetRequest $paramListSetRequest): void
+    public function testGetParamListRequest(ParamListRequest $paramListRequest): void
     {
-        self::assertSame($expected, $paramListSetRequest->getParamListRequest());
+        self::assertSame(
+            $paramListRequest,
+            ParamListSetRequest::create($paramListRequest, 1)->getParamListRequest()
+        );
     }
 
-    public function getParamListRequestProvider(): \Generator
+    public function getParamListRequestProvider(): array
     {
-        $paramListRequest = ParamListRequest::create([IntRequest::create()]);
-        yield [
-            'expected' => $paramListRequest,
-            'paramListSetRequest' => ParamListSetRequest::create($paramListRequest, 1),
-        ];
-
-        $paramListRequest = ParamListRequest::create([IntRequest::create(), StringRequest::create()]);
-        yield [
-            'expected' => $paramListRequest,
-            'paramListSetRequest' => ParamListSetRequest::create($paramListRequest, 1),
+        return [
+            [ParamListRequest::create([IntRequest::create()])],
+            [ParamListRequest::create([IntRequest::create(), StringRequest::create()])]
         ];
     }
 
     /** @dataProvider getCountProvider */
-    public function testGetCount(int $expected, ParamListSetRequest $paramListSetRequest): void
+    public function testGetCount(int $count): void
     {
-        self::assertSame($expected, $paramListSetRequest->getCount());
+        self::assertSame(
+            $count,
+            ParamListSetRequest::create(ParamListRequest::create([]), $count)->getCount()
+        );
     }
 
-    public function getCountProvider(): \Generator
+    public function getCountProvider(): array
     {
-        yield [
-            'expected' => 1,
-            'paramListSetRequest' => ParamListSetRequest::create(ParamListRequest::create([]), 1),
-        ];
-
-        yield [
-            'expected' => 99,
-            'paramListSetRequest' => ParamListSetRequest::create(ParamListRequest::create([]), 99),
+        return [
+            [1],
+            [99]
         ];
     }
 
