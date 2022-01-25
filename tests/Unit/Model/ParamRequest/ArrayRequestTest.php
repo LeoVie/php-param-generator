@@ -13,42 +13,33 @@ use PHPUnit\Framework\TestCase;
 class ArrayRequestTest extends TestCase
 {
     /** @dataProvider getTypeProvider */
-    public function testGetType(ParamRequest $expected, ArrayRequest $request): void
+    public function testGetType(ParamRequest $type): void
     {
-        self::assertSame($expected, $request->getType());
+        self::assertSame($type, ArrayRequest::create($type, 10)->getType());
     }
 
-    public function getTypeProvider(): \Generator
+    public function getTypeProvider(): array
     {
-        $type = IntRequest::create();
-        yield [
-            'expected' => $type,
-            ArrayRequest::create($type, 10)
-        ];
-
-        $type = StringRequest::create();
-        yield [
-            'expected' => $type,
-            ArrayRequest::create($type, 10)
+        return [
+            [IntRequest::create()],
+            [StringRequest::create()],
         ];
     }
 
     /** @dataProvider getCountOfEntriesProvider */
-    public function testGetCountOfEntries(int $expected, ArrayRequest $request): void
+    public function testGetCountOfEntries(int $countOfEntries): void
     {
-        self::assertSame($expected, $request->getCountOfEntries());
+        self::assertSame(
+            $countOfEntries,
+            ArrayRequest::create(IntRequest::create(), $countOfEntries)->getCountOfEntries()
+        );
     }
 
-    public function getCountOfEntriesProvider(): \Generator
+    public function getCountOfEntriesProvider(): array
     {
-        yield [
-            'expected' => 10,
-            ArrayRequest::create(IntRequest::create(), 10)
-        ];
-
-        yield [
-            'expected' => 7,
-            ArrayRequest::create(IntRequest::create(), 7)
+        return [
+            [10],
+            [7]
         ];
     }
 }

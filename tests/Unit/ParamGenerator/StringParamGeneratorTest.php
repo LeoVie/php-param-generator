@@ -8,12 +8,38 @@ use Faker\Generator as FakerGenerator;
 use Generator;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
 use LeoVie\PhpParamGenerator\Model\Param\StringParam;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\ArrayRequest;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
 use LeoVie\PhpParamGenerator\ParamGenerator\StringParamGenerator;
 use PHPUnit\Framework\TestCase;
 
 class StringParamGeneratorTest extends TestCase
 {
+    /** @dataProvider supportsProvider */
+    public function testSupports(bool $expected, ParamRequest $paramRequest): void
+    {
+        $intParamGenerator = new StringParamGenerator(
+            $this->createMock(FakerGenerator::class)
+        );
+
+        self::assertSame($expected, $intParamGenerator->supports($paramRequest));
+    }
+
+    public function supportsProvider(): array
+    {
+        return [
+            'supported' => [
+                'expected' => true,
+                'paramRequest' => StringRequest::create(),
+            ],
+            'unsupported' => [
+                'expected' => false,
+                'paramRequest' => ArrayRequest::create(StringRequest::create(), 10),
+            ],
+        ];
+    }
+
     /** @dataProvider generateProvider */
     public function testGenerate(Param $expected, StringRequest $request, FakerGenerator $fakerGenerator): void
     {
