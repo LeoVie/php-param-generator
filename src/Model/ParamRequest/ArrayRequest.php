@@ -6,21 +6,24 @@ namespace LeoVie\PhpParamGenerator\Model\ParamRequest;
 
 class ArrayRequest implements ParamRequest
 {
-    private function __construct(private ParamRequest $type, private int $countOfEntries)
+    /** @param ParamRequest[] $types */
+    private function __construct(private array $types)
     {}
 
-    public static function create(ParamRequest $type, int $countOfEntries): self
+    /** @param ParamRequest[] $types */
+    public static function create(array $types): self
     {
-        return new self($type, $countOfEntries);
+        return new self($types);
     }
 
-    public function getType(): ParamRequest
+    /** @return ParamRequest[] */
+    public function getTypes(): array
     {
-        return $this->type;
+        return $this->types;
     }
 
-    public function getCountOfEntries(): int
+    public function __toString(): string
     {
-        return $this->countOfEntries;
+        return \Safe\sprintf('ARRAY_REQUEST(%s)', join(', ', $this->getTypes()));
     }
 }

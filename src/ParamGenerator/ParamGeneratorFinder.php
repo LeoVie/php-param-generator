@@ -7,7 +7,7 @@ namespace LeoVie\PhpParamGenerator\ParamGenerator;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 
-class ParamGeneratorStrategy
+class ParamGeneratorFinder implements ParamGeneratorFinderInterface
 {
     /** @param iterable<ParamGenerator> $paramGenerators */
     public function __construct(private iterable $paramGenerators)

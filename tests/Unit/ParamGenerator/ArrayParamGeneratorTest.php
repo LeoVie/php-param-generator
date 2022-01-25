@@ -14,10 +14,9 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
 use LeoVie\PhpParamGenerator\ParamGenerator\ArrayParamGenerator;
-use LeoVie\PhpParamGenerator\ParamGenerator\IntParamGenerator;
-use LeoVie\PhpParamGenerator\ParamGenerator\ParamGenerator;
-use LeoVie\PhpParamGenerator\ParamGenerator\ParamGeneratorStrategy;
-use LeoVie\PhpParamGenerator\ParamGenerator\StringParamGenerator;
+use LeoVie\PhpParamGenerator\ParamGenerator\ParamGeneratorFinderInterface;
+use LeoVie\PhpParamGenerator\Tests\TestDouble\ParamGenerator\ParamGeneratorDouble;
+use LeoVie\PhpParamGenerator\Tests\TestDouble\ParamGenerator\ParamGeneratorFinderDouble;
 use PHPUnit\Framework\TestCase;
 
 class ArrayParamGeneratorTest extends TestCase
@@ -26,7 +25,7 @@ class ArrayParamGeneratorTest extends TestCase
     public function testSupports(bool $expected, ParamRequest $paramRequest): void
     {
         $arrayParamGenerator = new ArrayParamGenerator(
-            $this->createMock(ParamGeneratorStrategy::class)
+            $this->createMock(ParamGeneratorFinderInterface::class)
         );
 
         self::assertSame($expected, $arrayParamGenerator->supports($paramRequest));
@@ -37,7 +36,7 @@ class ArrayParamGeneratorTest extends TestCase
         return [
             'supported' => [
                 'expected' => true,
-                'paramRequest' => ArrayRequest::create(IntRequest::create(), 10),
+                'paramRequest' => ArrayRequest::create([IntRequest::create()]),
             ],
             'unsupported' => [
                 'expected' => false,
@@ -47,12 +46,11 @@ class ArrayParamGeneratorTest extends TestCase
     }
 
     /** @dataProvider generateProvider */
-    public function testGenerate(Param $expected, ArrayRequest $request, ParamGenerator $paramGenerator): void
+    public function testGenerate(Param $expected, ArrayRequest $request, array $paramGenerators): void
     {
-        $paramGeneratorStrategy = $this->createMock(ParamGeneratorStrategy::class);
-        $paramGeneratorStrategy->method('getConcreteParamGenerator')->willReturn($paramGenerator);
+        $paramGeneratorFinder = new ParamGeneratorFinderDouble($paramGenerators);
 
-        self::assertEquals($expected, (new ArrayParamGenerator($paramGeneratorStrategy))->generate($request));
+        self::assertEquals($expected, (new ArrayParamGenerator($paramGeneratorFinder))->generate($request, 2));
     }
 
     public function generateProvider(): Generator
@@ -61,12 +59,12 @@ class ArrayParamGeneratorTest extends TestCase
             IntParam::create(10),
             IntParam::create(983),
         ];
-        $intParamGenerator = $this->createMock(IntParamGenerator::class);
-        $intParamGenerator->method('generate')->willReturnOnConsecutiveCalls(...$params);
-        yield 'ArrayRequest<Int> (#1)' => [
+        yield 'ArrayRequest<Int, Int> (#1)' => [
             'expected' => ArrayParam::create($params),
-            'request' => ArrayRequest::create(IntRequest::create(), 2),
-            $intParamGenerator,
+            'request' => ArrayRequest::create([IntRequest::create(), IntRequest::create()]),
+            'paramGenerators' => [
+                IntRequest::class => new ParamGeneratorDouble($params),
+            ],
         ];
 
         $params = [
@@ -75,24 +73,37 @@ class ArrayParamGeneratorTest extends TestCase
             IntParam::create(8000),
             IntParam::create(983),
         ];
-        $intParamGenerator = $this->createMock(IntParamGenerator::class);
-        $intParamGenerator->method('generate')->willReturnOnConsecutiveCalls(...$params);
-        yield 'ArrayRequest<Int> (#2)' => [
+        yield 'ArrayRequest<Int, Int> (#2)' => [
             'expected' => ArrayParam::create([$params[0], $params[1]]),
-            'request' => ArrayRequest::create(IntRequest::create(), 2),
-            $intParamGenerator,
+            'request' => ArrayRequest::create([IntRequest::create(), IntRequest::create()]),
+            'paramGenerators' => [
+                IntRequest::class => new ParamGeneratorDouble($params),
+            ],
         ];
 
         $params = [
             StringParam::create('abc'),
             StringParam::create('def'),
         ];
-        $stringParamGenerator = $this->createMock(StringParamGenerator::class);
-        $stringParamGenerator->method('generate')->willReturnOnConsecutiveCalls(...$params);
-        yield 'ArrayRequest<String> (#1)' => [
+        yield 'ArrayRequest<String, String> (#1)' => [
             'expected' => ArrayParam::create($params),
-            'request' => ArrayRequest::create(StringRequest::create(), 2),
-            $stringParamGenerator,
+            'request' => ArrayRequest::create([StringRequest::create(), StringRequest::create()]),
+            'paramGenerators' => [
+                StringRequest::class => new ParamGeneratorDouble($params),
+            ],
+        ];
+
+        $params = [
+            IntParam::create(10),
+            StringParam::create('def'),
+        ];
+        yield 'ArrayRequest<Int, String>' => [
+            'expected' => ArrayParam::create($params),
+            'request' => ArrayRequest::create([IntRequest::create(), StringRequest::create()]),
+            'paramGenerators' => [
+                IntRequest::class => new ParamGeneratorDouble([$params[0]]),
+                StringRequest::class => new ParamGeneratorDouble([$params[1]]),
+            ],
         ];
     }
 }

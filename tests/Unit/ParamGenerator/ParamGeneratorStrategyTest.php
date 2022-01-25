@@ -10,7 +10,7 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
 use LeoVie\PhpParamGenerator\ParamGenerator\ArrayParamGenerator;
 use LeoVie\PhpParamGenerator\ParamGenerator\ParamGenerator;
-use LeoVie\PhpParamGenerator\ParamGenerator\ParamGeneratorStrategy;
+use LeoVie\PhpParamGenerator\ParamGenerator\ParamGeneratorFinder;
 use PHPUnit\Framework\TestCase;
 
 class ParamGeneratorStrategyTest extends TestCase
@@ -24,7 +24,7 @@ class ParamGeneratorStrategyTest extends TestCase
     {
         self::assertSame(
             $expected,
-            (new ParamGeneratorStrategy(new \ArrayIterator($paramGenerators)))->getConcreteParamGenerator($request)
+            (new ParamGeneratorFinder(new \ArrayIterator($paramGenerators)))->getConcreteParamGenerator($request)
         );
     }
 
@@ -64,7 +64,7 @@ class ParamGeneratorStrategyTest extends TestCase
     {
         self::expectException(NoParamGeneratorFoundForParamRequest::class);
 
-        (new ParamGeneratorStrategy(new \ArrayIterator($paramGenerators)))->getConcreteParamGenerator($request);
+        (new ParamGeneratorFinder(new \ArrayIterator($paramGenerators)))->getConcreteParamGenerator($request);
     }
 
     public function getConcreteParamsGeneratorThrowsProvider(): \Generator
