@@ -30,17 +30,17 @@ class ParamGeneratorService
     {
         $paramLists = [];
         for ($i = 0; $i < $paramListSetRequest->getCount(); $i++) {
-            $paramLists[] = $this->generateByParamListRequest($paramListSetRequest->getParamListRequest());
+            $paramLists[] = $this->generateByParamListRequest($paramListSetRequest->getParamListRequest(), $i);
         }
 
         return ParamListSet::create($paramLists);
     }
 
     /** @throws NoParamGeneratorFoundForParamRequest */
-    private function generateByParamListRequest(ParamListRequest $paramListRequest): ParamList
+    private function generateByParamListRequest(ParamListRequest $paramListRequest, int $index): ParamList
     {
         $params = [];
-        foreach ($paramListRequest->getParamRequests() as $index => $paramRequest) {
+        foreach ($paramListRequest->getParamRequests() as $paramRequest) {
             $params[] = $this->generateSingle($paramRequest, $index);
         }
         return ParamList::create($params);

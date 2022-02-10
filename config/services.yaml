@@ -18,5 +18,8 @@ services:
     arguments: [ !tagged_iterator { tag: 'app.param_generator' } ]
     public: true
 
+  LeoVie\PhpParamGenerator\Service\ParamGeneratorService:
+    public: true
+
   Faker\Generator:
     factory: [ 'Faker\Factory', 'create' ]

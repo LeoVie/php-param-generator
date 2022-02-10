@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\Tests\Functional;
 
-use LeoVie\PhpParamGenerator\ParamGenerator\ParamGeneratorFinder;
+use LeoVie\PhpParamGenerator\Service\ParamGeneratorService;
 use PHPUnit\Framework\TestCase;
 
 class FrameworkTest extends TestCase
@@ -12,8 +12,8 @@ class FrameworkTest extends TestCase
     {
         $kernel = new TestingKernel('test', true);
         $kernel->boot();
-        $paramGeneratorFinder = $kernel->getContainer()->get(ParamGeneratorFinder::class);
+        $paramGeneratorService = $kernel->getContainer()->get(ParamGeneratorService::class);
 
-        self::assertInstanceOf(ParamGeneratorFinder::class, $paramGeneratorFinder);
+        self::assertInstanceOf(ParamGeneratorService::class, $paramGeneratorService);
     }
 }

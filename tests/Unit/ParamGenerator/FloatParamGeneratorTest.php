@@ -7,21 +7,21 @@ namespace LeoVie\PhpParamGenerator\Tests\Unit\ParamGenerator;
 use Faker\Generator as FakerGenerator;
 use Generator;
 use LeoVie\PhpParamGenerator\Configuration\EdgeCaseConfigurationInterface;
-use LeoVie\PhpParamGenerator\Model\Param\IntParam;
+use LeoVie\PhpParamGenerator\Model\Param\FloatParam;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
-use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\FloatRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
-use LeoVie\PhpParamGenerator\ParamGenerator\IntParamGenerator;
+use LeoVie\PhpParamGenerator\ParamGenerator\FloatParamGenerator;
 use LeoVie\PhpParamGenerator\Tests\TestDouble\Configuration\EdgeCaseConfigurationDouble;
 use PHPUnit\Framework\TestCase;
 
-class IntParamGeneratorTest extends TestCase
+class FloatParamGeneratorTest extends TestCase
 {
     /** @dataProvider supportsProvider */
     public function testSupports(bool $expected, ParamRequest $paramRequest): void
     {
-        $intParamGenerator = new IntParamGenerator(
+        $intParamGenerator = new FloatParamGenerator(
             $this->createMock(FakerGenerator::class),
             $this->createMock(EdgeCaseConfigurationInterface::class),
         );
@@ -34,7 +34,7 @@ class IntParamGeneratorTest extends TestCase
         return [
             'supported' => [
                 'expected' => true,
-                'paramRequest' => IntRequest::create(),
+                'paramRequest' => FloatRequest::create(),
             ],
             'unsupported' => [
                 'expected' => false,
@@ -46,7 +46,7 @@ class IntParamGeneratorTest extends TestCase
     /** @dataProvider generateProvider */
     public function testGenerate(
         Param                          $expected,
-        IntRequest                     $request,
+        FloatRequest                   $request,
         FakerGenerator                 $fakerGenerator,
         EdgeCaseConfigurationInterface $edgeCaseConfiguration,
         int                            $index
@@ -54,7 +54,7 @@ class IntParamGeneratorTest extends TestCase
     {
         self::assertEquals(
             $expected,
-            (new IntParamGenerator($fakerGenerator, $edgeCaseConfiguration))
+            (new FloatParamGenerator($fakerGenerator, $edgeCaseConfiguration))
                 ->generate($request, $index)
         );
     }
@@ -62,54 +62,54 @@ class IntParamGeneratorTest extends TestCase
     public function generateProvider(): Generator
     {
         $edgeCases = [
-            1 => IntParam::create(0),
-            2 => IntParam::create(PHP_INT_MAX),
-            3 => IntParam::create(PHP_INT_MIN),
+            1 => FloatParam::create(0),
+            2 => FloatParam::create(PHP_FLOAT_MAX),
+            3 => FloatParam::create(PHP_FLOAT_MIN),
         ];
         $edgeCaseConfiguration = new EdgeCaseConfigurationDouble($edgeCases);
 
         $fakerGenerator = $this->createMock(FakerGenerator::class);
-        $fakerGenerator->method('randomNumber')->willReturn(10);
-        yield 'IntRequest (index 0)' => [
-            'expected' => IntParam::create(10),
-            'request' => IntRequest::create(),
+        $fakerGenerator->method('randomFloat')->willReturn(0.004);
+        yield 'FloatRequest (index 0)' => [
+            'expected' => FloatParam::create(0.004),
+            'request' => FloatRequest::create(),
             $fakerGenerator,
             $edgeCaseConfiguration,
             'index' => 0,
         ];
 
         $fakerGenerator = $this->createMock(FakerGenerator::class);
-        yield 'IntRequest (index 1)' => [
+        yield 'FloatRequest (index 1)' => [
             'expected' => $edgeCases[1],
-            'request' => IntRequest::create(),
+            'request' => FloatRequest::create(),
             $fakerGenerator,
             $edgeCaseConfiguration,
             'index' => 1,
         ];
 
         $fakerGenerator = $this->createMock(FakerGenerator::class);
-        yield 'IntRequest (index 2)' => [
+        yield 'FloatRequest (index 2)' => [
             'expected' => $edgeCases[2],
-            'request' => IntRequest::create(),
+            'request' => FloatRequest::create(),
             $fakerGenerator,
             $edgeCaseConfiguration,
             'index' => 2,
         ];
 
         $fakerGenerator = $this->createMock(FakerGenerator::class);
-        yield 'IntRequest (index 3)' => [
+        yield 'FloatRequest (index 3)' => [
             'expected' => $edgeCases[3],
-            'request' => IntRequest::create(),
+            'request' => FloatRequest::create(),
             $fakerGenerator,
             $edgeCaseConfiguration,
             'index' => 3,
         ];
 
         $fakerGenerator = $this->createMock(FakerGenerator::class);
-        $fakerGenerator->method('randomNumber')->willReturn(983);
+        $fakerGenerator->method('randomFloat')->willReturn(-33.09);
         yield 'IntRequest (index 4)' => [
-            'expected' => IntParam::create(983),
-            'request' => IntRequest::create(),
+            'FloatRequest' => FloatParam::create(-33.09),
+            'request' => FloatRequest::create(),
             $fakerGenerator,
             $edgeCaseConfiguration,
             'index' => 4,

@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace LeoVie\PhpParamGenerator\Configuration;
 
 use LeoVie\PhpParamGenerator\Exception\NoEdgeCasesFoundForParamRequest;
+use LeoVie\PhpParamGenerator\Model\Param\FloatParam;
 use LeoVie\PhpParamGenerator\Model\Param\IntParam;
 use LeoVie\PhpParamGenerator\Model\Param\StringParam;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\FloatRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
@@ -26,6 +28,11 @@ class EdgeCaseConfiguration implements EdgeCaseConfigurationInterface
                 1 => IntParam::create(0),
                 2 => IntParam::create(PHP_INT_MAX),
                 3 => IntParam::create(PHP_INT_MIN),
+            ],
+            $paramRequest instanceof FloatRequest => [
+                1 => FloatParam::create(0),
+                2 => FloatParam::create(PHP_FLOAT_MAX),
+                3 => FloatParam::create(PHP_FLOAT_MIN),
             ],
             $paramRequest instanceof StringRequest => [
                 1 => StringParam::create(''),

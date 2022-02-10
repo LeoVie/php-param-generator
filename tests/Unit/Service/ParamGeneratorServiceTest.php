@@ -20,11 +20,6 @@ use PHPUnit\Framework\TestCase;
 
 class ParamGeneratorServiceTest extends TestCase
 {
-    public function testFoo(): void
-    {
-        self::assertTrue(true);
-    }
-
     /** @dataProvider generateProvider */
     public function testGenerate(
         ParamListSet                  $expected,
