@@ -14,6 +14,4 @@ interface Param
 
     /** @return mixed */
     public function flatten();
-
-    public function __toString(): string;
 }

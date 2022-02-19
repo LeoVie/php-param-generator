@@ -35,29 +35,4 @@ class ParamListTest extends TestCase
             'paramList' => ParamList::create($params),
         ];
     }
-
-    /** @dataProvider toStringProvider */
-    public function testToString(string $expected, ParamList $paramList): void
-    {
-        self::assertSame($expected, $paramList->__toString());
-    }
-
-    public function toStringProvider(): \Generator
-    {
-        $params = [IntParam::create(10)];
-        yield [
-            'expected' => 'PARAM_LIST(INT_PARAM(10))',
-            'paramList' => ParamList::create($params),
-        ];
-
-        $params = [
-            IntParam::create(10),
-            StringParam::create('abc'),
-            StringParam::create('def'),
-        ];
-        yield [
-            'expected' => 'PARAM_LIST(INT_PARAM(10), STRING_PARAM(abc), STRING_PARAM(def))',
-            'paramList' => ParamList::create($params),
-        ];
-    }
 }

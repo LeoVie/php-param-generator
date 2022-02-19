@@ -48,24 +48,4 @@ class IntParamTest extends TestCase
             ],
         ];
     }
-
-    /** @dataProvider toStringProvider */
-    public function testToString(string $expected, IntParam $param): void
-    {
-        self::assertSame($expected, $param->__toString());
-    }
-
-    public function toStringProvider(): array
-    {
-        return [
-            [
-                'expected' => 'INT_PARAM(10)',
-                IntParam::create(10),
-            ],
-            [
-                'expected' => 'INT_PARAM(990)',
-                IntParam::create(990),
-            ],
-        ];
-    }
 }

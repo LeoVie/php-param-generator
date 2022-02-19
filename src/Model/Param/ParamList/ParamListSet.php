@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\Model\Param\ParamList;
 
-class ParamListSet implements \Stringable
+class ParamListSet
 {
     /** @param ParamList[] $paramLists */
     private function __construct(private array $paramLists)
@@ -20,10 +20,5 @@ class ParamListSet implements \Stringable
     public function getParamLists(): array
     {
         return $this->paramLists;
-    }
-
-    public function __toString(): string
-    {
-        return \Safe\sprintf('PARAM_LIST_SET(%s)', join(', ', $this->getParamLists()));
     }
 }

@@ -48,24 +48,4 @@ class FloatParamTest extends TestCase
             ],
         ];
     }
-
-    /** @dataProvider toStringProvider */
-    public function testToString(string $expected, FloatParam $param): void
-    {
-        self::assertSame($expected, $param->__toString());
-    }
-
-    public function toStringProvider(): array
-    {
-        return [
-            [
-                'expected' => 'FLOAT_PARAM(10.01000000)',
-                FloatParam::create(10.01),
-            ],
-            [
-                'expected' => 'FLOAT_PARAM(-0.00006000)',
-                FloatParam::create(-0.00006),
-            ],
-        ];
-    }
 }

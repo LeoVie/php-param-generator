@@ -13,9 +13,4 @@ class StringRequestTest extends TestCase
     {
         self::assertInstanceOf(StringRequest::class, StringRequest::create());
     }
-
-    public function testToString(): void
-    {
-        self::assertSame('STRING_REQUEST', StringRequest::create()->__toString());
-    }
 }

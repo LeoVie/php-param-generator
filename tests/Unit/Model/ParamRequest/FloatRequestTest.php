@@ -13,9 +13,4 @@ class FloatRequestTest extends TestCase
     {
         self::assertInstanceOf(FloatRequest::class, FloatRequest::create());
     }
-
-    public function testToString(): void
-    {
-        self::assertSame('FLOAT_REQUEST', FloatRequest::create()->__toString());
-    }
 }

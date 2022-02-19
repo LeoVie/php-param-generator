@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\Model\Param;
 
-// TODO: Add generic template https://phpstan.org/blog/generics-in-php-using-phpdocs
 class ArrayParam implements Param
 {
     /** @param Param[] $value */
@@ -28,10 +27,5 @@ class ArrayParam implements Param
     public function flatten(): array
     {
         return array_map(fn(Param $p): mixed => $p->flatten(), $this->getValue());
-    }
-
-    public function __toString(): string
-    {
-        return \Safe\sprintf('ARRAY_PARAM(%s)', join(', ', $this->getValue()));
     }
 }

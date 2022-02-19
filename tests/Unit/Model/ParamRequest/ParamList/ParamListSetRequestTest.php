@@ -45,23 +45,4 @@ class ParamListSetRequestTest extends TestCase
             [99]
         ];
     }
-
-    /** @dataProvider toStringProvider */
-    public function testToString(string $expected, ParamListSetRequest $paramListSetRequest): void
-    {
-        self::assertSame($expected, $paramListSetRequest->__toString());
-    }
-
-    public function toStringProvider(): \Generator
-    {
-        yield [
-            'expected' => 'PARAM_LIST_SET_REQUEST(1x PARAM_LIST_REQUEST())',
-            'paramListSetRequest' => ParamListSetRequest::create(ParamListRequest::create([]), 1),
-        ];
-
-        yield [
-            'expected' => 'PARAM_LIST_SET_REQUEST(99x PARAM_LIST_REQUEST())',
-            'paramListSetRequest' => ParamListSetRequest::create(ParamListRequest::create([]), 99),
-        ];
-    }
 }

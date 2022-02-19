@@ -27,11 +27,4 @@ class FloatParam implements Param
     {
         return $this->getValue();
     }
-
-    public function __toString(): string
-    {
-        $flattenPattern = 'FLOAT_PARAM(%.' . self::NUMBER_OF_DECIMALS . 'F)';
-
-        return \Safe\sprintf($flattenPattern, $this->flatten());
-    }
 }

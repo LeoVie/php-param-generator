@@ -48,24 +48,4 @@ class StringParamTest extends TestCase
             ],
         ];
     }
-
-    /** @dataProvider toStringProvider */
-    public function testToString(string $expected, StringParam $param): void
-    {
-        self::assertSame($expected, $param->__toString());
-    }
-
-    public function toStringProvider(): array
-    {
-        return [
-            [
-                'expected' => 'STRING_PARAM(abc)',
-                StringParam::create('abc'),
-            ],
-            [
-                'expected' => 'STRING_PARAM(lorem ipsum dolor sit amet)',
-                StringParam::create('lorem ipsum dolor sit amet'),
-            ],
-        ];
-    }
 }

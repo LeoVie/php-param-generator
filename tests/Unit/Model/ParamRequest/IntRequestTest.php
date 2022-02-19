@@ -13,9 +13,4 @@ class IntRequestTest extends TestCase
     {
         self::assertInstanceOf(IntRequest::class, IntRequest::create());
     }
-
-    public function testToString(): void
-    {
-        self::assertSame('INT_REQUEST', IntRequest::create()->__toString());
-    }
 }

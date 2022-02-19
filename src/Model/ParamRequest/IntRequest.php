@@ -10,9 +10,4 @@ class IntRequest implements ParamRequest
     {
         return new self();
     }
-
-    public function __toString(): string
-    {
-        return 'INT_REQUEST';
-    }
 }
