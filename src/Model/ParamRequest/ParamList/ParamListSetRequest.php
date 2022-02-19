@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList;
 
+/** @psalm-immutable */
 class ParamListSetRequest
 {
     private function __construct(private ParamListRequest $paramListRequest, private int $count)
