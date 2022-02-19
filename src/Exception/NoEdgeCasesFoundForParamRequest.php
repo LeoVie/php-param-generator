@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\Exception;
 
+/** @psalm-immutable */
 class NoEdgeCasesFoundForParamRequest extends \Exception
 {
     private function __construct(string $paramRequestClass)
