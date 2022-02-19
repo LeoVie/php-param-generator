@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\Model\Param;
 
+/** @psalm-immutable */
 class StringParam implements Param
 {
     private function __construct(private string $value)

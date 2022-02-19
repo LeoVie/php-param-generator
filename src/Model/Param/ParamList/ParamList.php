@@ -6,6 +6,7 @@ namespace LeoVie\PhpParamGenerator\Model\Param\ParamList;
 
 use LeoVie\PhpParamGenerator\Model\Param\Param;
 
+/** @psalm-immutable */
 class ParamList
 {
     /** @param Param[] $params */

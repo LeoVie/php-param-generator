@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\Model\Param;
 
+/** @psalm-immutable */
 class FloatParam implements Param
 {
     public const NUMBER_OF_DECIMALS = 8;
