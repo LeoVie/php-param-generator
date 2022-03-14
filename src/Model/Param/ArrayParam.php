@@ -28,4 +28,15 @@ class ArrayParam implements Param
     {
         return array_map(fn(Param $p): mixed => $p->flatten(), $this->getValue());
     }
+
+    public function hash(): string
+    {
+        return \Safe\sprintf('ARRAY_PARAM(%s)', join(
+            ', ',
+            array_map(
+                fn(Param $param): string => $param->hash(),
+                $this->getValue()
+            )
+        ));
+    }
 }

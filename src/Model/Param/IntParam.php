@@ -26,4 +26,9 @@ class IntParam implements Param
     {
         return $this->getValue();
     }
+
+    public function hash(): string
+    {
+        return \Safe\sprintf('INT_PARAM(%s)', $this->flatten());
+    }
 }

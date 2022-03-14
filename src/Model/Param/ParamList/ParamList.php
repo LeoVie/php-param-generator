@@ -11,7 +11,8 @@ class ParamList
 {
     /** @param Param[] $params */
     private function __construct(private array $params)
-    {}
+    {
+    }
 
     /** @param Param[] $params */
     public static function create(array $params): self
@@ -23,5 +24,16 @@ class ParamList
     public function getParams(): array
     {
         return $this->params;
+    }
+
+    public function hash(): string
+    {
+        return \Safe\sprintf('PARAM_LIST(%s)', join(
+            ', ',
+            array_map(
+                fn(Param $param): string => $param->hash(),
+                $this->getParams()
+            )
+        ));
     }
 }
