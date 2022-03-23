@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\Model\Param\ParamList;
 
-/** @psalm-immutable */
 class ParamListSet
 {
     /** @param ParamList[] $paramLists */
