@@ -7,10 +7,12 @@ namespace LeoVie\PhpParamGenerator\Tests\Functional\Service;
 use LeoVie\PhpParamGenerator\Model\Param\BoolParam;
 use LeoVie\PhpParamGenerator\Model\Param\FloatParam;
 use LeoVie\PhpParamGenerator\Model\Param\IntParam;
+use LeoVie\PhpParamGenerator\Model\Param\NullParam;
 use LeoVie\PhpParamGenerator\Model\Param\StringParam;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\BoolRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\FloatRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\NullRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListSetRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
@@ -190,6 +192,21 @@ class ParamGeneratorServiceTest extends TestCase
                     ],
                     4 => [
                         0 => BoolParam::class,
+                    ],
+                ],
+                'paramExpectations' => [],
+            ],
+            7 => [
+                'paramListSetRequestCount' => 5,
+                'paramRequests' => [
+                    NullRequest::create(),
+                ],
+                'paramInstanceExpectations' => [
+                    0 => [
+                        0 => NullParam::class,
+                    ],
+                    4 => [
+                        0 => NullParam::class,
                     ],
                 ],
                 'paramExpectations' => [],

@@ -56,10 +56,6 @@ class ParamGeneratorServiceTest extends TestCase
         ];
 
 
-
-
-
-
         $params = [
             IntParam::create(10),
             IntParam::create(20),
@@ -82,7 +78,6 @@ class ParamGeneratorServiceTest extends TestCase
             'paramListSetRequest' => $paramListSetRequest,
             'paramGeneratorFinder' => $paramGeneratorFinder,
         ];
-
 
 
         $params = [
