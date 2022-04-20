@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpParamGenerator\ParamGenerator;
 
-use Faker\Generator as FakerGenerator;
 use LeoVie\PhpParamGenerator\Configuration\EdgeCaseConfigurationInterface;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
 use LeoVie\PhpParamGenerator\Model\Param\StringParam;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
+use LeoVie\PhpParamGenerator\TypeGenerator\StringGenerator;
 
 class StringParamGenerator implements ParamGenerator
 {
     private const SUPPORTED_REQUEST = StringRequest::class;
 
     public function __construct(
-        private FakerGenerator                 $generator,
+        private StringGenerator                $stringGenerator,
         private EdgeCaseConfigurationInterface $edgeCaseConfiguration,
     )
     {
@@ -34,6 +34,6 @@ class StringParamGenerator implements ParamGenerator
             return $edgeCases[$index];
         }
 
-        return StringParam::create($this->generator->text());
+        return StringParam::create($this->stringGenerator->generate());
     }
 }

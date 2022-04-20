@@ -7,10 +7,8 @@ namespace LeoVie\PhpParamGenerator\ParamGenerator;
 use Faker\Generator as FakerGenerator;
 use LeoVie\PhpParamGenerator\Configuration\EdgeCaseConfigurationInterface;
 use LeoVie\PhpParamGenerator\Model\Param\FloatParam;
-use LeoVie\PhpParamGenerator\Model\Param\IntParam;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\FloatRequest;
-use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 
 class FloatParamGenerator implements ParamGenerator
@@ -18,7 +16,7 @@ class FloatParamGenerator implements ParamGenerator
     private const SUPPORTED_REQUEST = FloatRequest::class;
 
     public function __construct(
-        private FakerGenerator $generator,
+        private FakerGenerator                 $generator,
         private EdgeCaseConfigurationInterface $edgeCaseConfiguration,
     )
     {
