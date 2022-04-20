@@ -6,8 +6,11 @@ namespace LeoVie\PhpParamGenerator\Random;
 
 class Coin
 {
+    private const HEADS = 0;
+    private const TAILS = 1;
+
     public function flip(): bool
     {
-        return rand(0, 1) === 0;
+        return (bool) rand(self::HEADS, self::TAILS);
     }
 }

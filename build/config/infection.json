@@ -12,7 +12,34 @@
     "text": "build/logs/infection.log"
   },
   "mutators": {
-    "@default": true
+    "@default": true,
+    "IncrementInteger": {
+      "ignore": [
+        "LeoVie\\PhpParamGenerator\\TypeGenerator\\StringGenerator::pickRandomPosition",
+        "LeoVie\\PhpParamGenerator\\TypeGenerator\\StringGenerator::pickRandomSpecialChar"
+      ]
+    },
+    "DecrementInteger": {
+      "ignore": [
+        "LeoVie\\PhpParamGenerator\\TypeGenerator\\StringGenerator::pickRandomPosition",
+        "LeoVie\\PhpParamGenerator\\TypeGenerator\\StringGenerator::pickRandomSpecialChar"
+      ]
+    },
+    "Minus": {
+      "ignore": [
+        "LeoVie\\PhpParamGenerator\\TypeGenerator\\StringGenerator::pickRandomPosition"
+      ]
+    },
+    "ConcatOperandRemoval": {
+      "ignore": [
+        "LeoVie\\PhpParamGenerator\\TypeGenerator\\StringGenerator::randomlyAddSpacesAndBeginAndEnd"
+      ]
+    },
+    "Increment": {
+      "ignore": [
+        "LeoVie\\PhpParamGenerator\\TypeGenerator\\StringGenerator::insertSpecialChars"
+      ]
+    }
   },
   "tmpDir": "../cache"
 }

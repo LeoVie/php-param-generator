@@ -32,17 +32,18 @@ class StringGenerator
     private function insertSpecialChars(string $randomString): string
     {
         for ($i = 0; $i < 10; $i++) {
-            $position = rand(0, strlen($randomString) - 1);
+            $position = $this->pickRandomPosition($randomString);
 
-            $character = self::SPECIAL_CHARS[rand(0, count(self::SPECIAL_CHARS) - 1)];
+            $character = $this->pickRandomSpecialChar();
 
             $stringPartitions = $this->stringPartition($randomString, $position);
-            $randomString = $stringPartitions[0] . $character . $stringPartitions[1];
+            $randomString = join("", [$stringPartitions[0], $character, $stringPartitions[1]]);
         }
 
         return $randomString;
     }
 
+    /** @return array{0: string, 1: string} */
     private function stringPartition(string $string, int $splitPosition): array
     {
         return [
@@ -61,5 +62,15 @@ class StringGenerator
             $randomString = $randomString . ' ';
         }
         return $randomString;
+    }
+
+    private function pickRandomPosition(string $randomString): int
+    {
+        return rand(0, strlen($randomString) - 1);
+    }
+
+    private function pickRandomSpecialChar(): string
+    {
+        return self::SPECIAL_CHARS[rand(0, count(self::SPECIAL_CHARS) - 1)];
     }
 }

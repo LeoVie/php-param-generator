@@ -22,6 +22,7 @@ class StringGeneratorTest extends TestCase
         $stringGenerator = new StringGenerator($fakerGenerator, $coin);
         $randomString = $stringGenerator->generate();
 
+        self::assertEquals(11, strlen($randomString));
         foreach (mb_str_split($randomString) as $char) {
             if ($char === ' ' || $char === '') {
                 continue;
@@ -29,5 +30,7 @@ class StringGeneratorTest extends TestCase
 
             self::assertContains($char, StringGenerator::SPECIAL_CHARS);
         }
+        self::assertStringStartsWith(' ', $randomString);
+        self::assertStringEndsNotWith(' ', $randomString);
     }
 }
