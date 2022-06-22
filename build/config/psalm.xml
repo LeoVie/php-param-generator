@@ -18,6 +18,11 @@
                 <directory name="../../src/Model/Param" />
             </errorLevel>
         </MoreSpecificImplementedParamType>
+        <UnresolvableInclude>
+            <errorLevel type="suppress">
+                <file name="../../src/ParamGenerator/ObjectParamGenerator.php" />
+            </errorLevel>
+        </UnresolvableInclude>
     </issueHandlers>
     <plugins>
         <pluginClass class="HectorJ\SafePHPPsalmPlugin\Plugin"/>
