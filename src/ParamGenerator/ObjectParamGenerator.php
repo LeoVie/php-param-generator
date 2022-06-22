@@ -46,7 +46,7 @@ class ObjectParamGenerator implements ParamGenerator
         require_once $request->getBootstrapScriptPath();
 
         $object = new ($request->getClassFQN())(...array_map(
-            fn(Param $param) => $param->flatten(),
+            fn(Param $param): mixed => $param->flatten(),
             $values
         ));
 
