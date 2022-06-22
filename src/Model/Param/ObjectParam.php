@@ -21,13 +21,13 @@ class ObjectParam implements Param
         return $this->value;
     }
 
-    public function flatten(): string
+    public function flatten(): object
     {
-        return serialize($this->getValue());
+        return $this->getValue();
     }
 
     public function hash(): string
     {
-        return sprintf('OBJECT_PARAM(%s)', $this->flatten());
+        return sprintf('OBJECT_PARAM(%s)', serialize($this->getValue()));
     }
 }
