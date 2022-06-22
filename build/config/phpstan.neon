@@ -5,6 +5,8 @@ parameters:
     paths:
         - %currentWorkingDirectory%/src
         - %currentWorkingDirectory%/tests/Unit
+    scanDirectories:
+        - %currentWorkingDirectory%/tests/testdata
     disallowedMethodCalls:
         - method: '*\*::__construct'
           message: "Don't use naive object instantiation."
