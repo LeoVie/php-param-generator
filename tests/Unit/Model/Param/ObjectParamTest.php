@@ -28,7 +28,7 @@ class ObjectParamTest extends TestCase
     }
 
     /** @dataProvider flattenProvider */
-    public function testFlatten(string $expected, ObjectParam $param): void
+    public function testFlatten(object $expected, ObjectParam $param): void
     {
         self::assertSame($expected, $param->flatten());
     }
@@ -39,7 +39,7 @@ class ObjectParamTest extends TestCase
 
         return [
             [
-                'expected' => 'O:60:"LeoVie\PhpParamGenerator\Tests\Unit\Model\Param\ExampleClass":1:{i:0;s:3:"foo";}',
+                'expected' => $class,
                 ObjectParam::create($class),
             ],
         ];
